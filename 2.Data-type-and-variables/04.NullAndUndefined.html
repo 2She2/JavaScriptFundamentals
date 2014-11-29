@@ -1,0 +1,22 @@
+<!--
+    04.Create null, undefined variables and try typeof on them.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Typeof on all variables</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        var nullable = null,
+            undef = undefined;
+
+        jsConsole.writeLine(nullable + ' -> ' + typeof (nullable));
+        jsConsole.writeLine(undef + ' -> ' + typeof (undef));
+    </script>
+</body>
+</html>

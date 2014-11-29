@@ -1,0 +1,63 @@
+﻿<!--
+    07.Write a script that parses an URL address given in the format:
+        [protocol]://[server]/[resource]
+    and extracts from it the [protocol], [server] and [resource] elements.
+    Return the elements in a JSON object.For example from the URL http://www.devbg.org/forum/index.php
+    the following information should be extracted:
+        {protocol: "http", server: "www.devbg.org",
+        resource: "/forum/index.php"}
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Extract the content of a html page given as text</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        input {
+            width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <label for="address">Enter URL address: </label>
+    <input type="text" id="address" />
+    <br />
+    <button onclick="parseUrlAddress()">Extract text</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function parseUrlAddress() {
+            var input = jsConsole.read('#address'),
+                addressElements = [],
+                protocolEndIndex = input.indexOf(':'),
+                serverStartIndex = protocolEndIndex + 3,
+                serverEndIndex = input.indexOf('/', serverStartIndex),
+                jsonObject;
+
+            addressElements[0] = input.substring(0, protocolEndIndex);
+            addressElements[1] = input.substring(serverStartIndex, serverEndIndex);
+            addressElements[2] = input.substr(serverEndIndex);
+
+            jsonObject = buildObject(addressElements[0], addressElements[1], addressElements[2]);
+
+            jsConsole.writeLine(jsonObject);
+        }
+
+        function buildObject(protocol, server, resource) {
+            return {
+                protocol: protocol,
+                server: server,
+                resource: resource,
+                toString: function () {
+                    return 'protocol: ' + this.protocol +
+                           ', server: ' + this.server +
+                           ', resource' + this.resource;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!--
+    04.Write an expression that checks for given integer if its third digit (right-to-left) is 7. E. g. 1732 -> true.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Is third digit 7</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <label for="number">Enter integer number: </label>
+    <input type="text" id="number" />
+    <br />
+    <button id="checkNumber" onclick="checkNumber()">Check number</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function checkNumber() {
+            var inputNumber = jsConsole.readInteger("#number");
+
+            // Check if input number is at least 3 digits long
+            if (inputNumber > -100 && inputNumber < 100) {
+                jsConsole.writeLine("Pleas enter at least 3 digit number!");
+            } else {
+                // When we divide by 100 we set the last digit of the number to be 3rd one(the one we have to check)
+                var thirdDigit = inputNumber / 100;
+                // Using "parseInt", because when we divide by 100 we get the full result, not just the whole part like in C#
+                thirdDigit = parseInt(thirdDigit);
+                thirdDigit %= 10;
+
+                jsConsole.writeLine("Is third digit 7 -> " + (thirdDigit == 7));
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+﻿<!--
+    04.You are given a text. Write a function that changes the text in all regions:
+        <upcase>text</upcase> to uppercase.
+        <lowcase>text</lowcase> to lowercase
+        <mixcase>text</mixcase> to mix casing(random)
+            We are <mixcase>living</mixcase> in a <upcase>yellow submarine</upcase>.
+            We <mixcase>don't</mixcase> have <lowcase>anything</lowcase> else.
+        The expected result:
+            We are LiVinG in a YELLOW SUBMARINE. We dOn'T have anything else.
+        Regions can be nested
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Changes the text case</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        textarea {
+            width: 600px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <label for="text">Enter text: </label>
+    <textarea id="text"></textarea>
+    <br />
+    <button onclick="printFormattedText()">Change text case</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function printFormattedText() {
+            var input,
+                formattedText;
+
+            input = readInput();
+            formattedText = changeTextCase(input);
+
+            jsConsole.writeLine(formattedText);
+        }
+
+        function readInput() {
+            var text = jsConsole.read('#text');
+
+            return text;
+        }
+
+        function changeTextCase(inputText) {
+            var text = inputText,
+                formattedText = '',
+                currentFormattedText,
+                currentTag,
+                upcaseCloseTag = '</upcase>',
+                lowcaseCloseTag = '</lowcase>',
+                mixcaseCloseTag = '</mixcase>',
+                ltIndex = -1,
+                gtIndex,
+                i = 0;
+
+            do {
+                ltIndex = text.indexOf('<', i);
+                gtIndex = text.indexOf('>', i);
+                var tag = text.substring(ltIndex + 1, gtIndex);
+                var closeTag = text.indexOf('</', gtIndex + 1);
+
+                if (ltIndex == -1) {
+                    formattedText += text.substr(i);
+                    return formattedText;
+                }
+
+                formattedText += text.substring(i, ltIndex);
+
+                switch (tag) {
+                    case 'upcase':
+                        currentFormattedText = findTextBetweenTags(gtIndex, text, upcaseCloseTag);
+                        currentFormattedText = textToUpper(currentFormattedText);
+                        i = text.indexOf(upcaseCloseTag, i) + upcaseCloseTag.length;
+                        break;
+                    case 'lowcase':
+                        currentFormattedText = findTextBetweenTags(gtIndex, text, lowcaseCloseTag);
+                        currentFormattedText = textToLower(currentFormattedText);
+                        i = text.indexOf(lowcaseCloseTag, i) + lowcaseCloseTag.length;
+                        break;
+                    case 'mixcase':
+                        currentFormattedText = findTextBetweenTags(gtIndex, text, mixcaseCloseTag);
+                        currentFormattedText = textTomixcase(currentFormattedText);
+                        i = text.indexOf(mixcaseCloseTag, i) + mixcaseCloseTag.length;
+                        break;
+                    default: jsConsole.writeLine('Switch error!');
+                        break;
+                }
+
+                formattedText += currentFormattedText;
+            }
+            while (true)
+        }
+
+        function findTextBetweenTags(gtIndex, text, tag) {
+            var closingTag = text.indexOf(tag, gtIndex),
+                currentText = text.substring(gtIndex + 1, closingTag);
+
+            return currentText;
+        }
+
+        function textToUpper(text) {
+            var formattedText = changeTextCase(text);
+            formattedText = formattedText.toUpperCase();
+
+            return formattedText;
+        }
+
+        function textToLower(text) {
+            var formattedText = changeTextCase(text);
+            formattedText = formattedText.toLowerCase();
+
+            return formattedText;
+        }
+
+        function textTomixcase(text) {
+            var formattedText = changeTextCase(text),
+            mixedText = '';
+
+            for (var i = 0; i < formattedText.length; i++) {
+                if (Math.random() < 0.5) {
+                    mixedText += text[i].toUpperCase();
+                } else {
+                    mixedText += text[i].toLowerCase();
+                }
+            }
+
+            return mixedText;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+﻿<!--
+    06.Write a program that finds the most frequent number in an array. Example:
+    {4, 1, 1, 4, 2, 3, 4, 4, 1, 2, 4, 9, 3}  4 (5 times)
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Find the most frequent number in an array</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        input {
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <p>Sequence of numbers must be separated by comma and space: ", "</p>
+    <label for="sequence">Enter sequence of numbers: </label>
+    <input type="text" id="sequence" />
+    <br />
+    <button onclick="findNumber()">Find number</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function findNumber() {
+            var inputData = jsConsole.read('#sequence'),
+                separator = ', ',
+                mostFrequentNumber = 1,
+                mostFrequentNumberCount = 1,
+                counter = 1,
+                i = 0,
+                j = 0;
+
+            inputData = inputData.split(separator);
+
+            // Compare each number with the rest of them. Save the value and appearance count of the most frequent number
+            for (i = 0; i < inputData.length - 1; i++) {
+                counter = 1;
+
+                for (j = i + 1; j < inputData.length; j++) {
+                    if (inputData[j] === inputData[i]) {
+                        counter++;
+
+                        if (counter > mostFrequentNumberCount) {
+                            mostFrequentNumberCount = counter;
+                            mostFrequentNumber = inputData[i];
+                        }
+                    }
+                }
+            }
+
+            jsConsole.writeLine(mostFrequentNumber + ' appears ' + mostFrequentNumberCount + ' times');
+        }
+    </script>
+</body>
+</html>

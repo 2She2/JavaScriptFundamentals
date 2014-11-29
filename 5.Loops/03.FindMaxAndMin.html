@@ -1,0 +1,48 @@
+<!--
+    03.Write a script that finds the max and min number from a sequence of numbers
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Finds the max and min number from a sequence of numbers</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <label for="numbers">Enter sequence of numbers separated by space: </label>
+    <input type="text" id="numbers" style="width: 300px" />
+    <br />
+    <button id="findNumbers" onclick="showMaxAndMin()">Show numbers</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function showMaxAndMin() {
+            var numberN = jsConsole.read("#numbers");
+
+            // Split input string by spaces so we can get the numbres
+            var numbersArray = new Array();
+            numbersArray = numberN.split(' ');
+
+            var min = numbersArray[0];
+            var max = numbersArray[0];
+
+            // On each iteration parse the current number and check if it is lower or greater
+            for (var i = 0; i < numbersArray.length; i++) {
+                var currentNumber = parseFloat(numbersArray[i]);
+
+                if (currentNumber < min) {
+                    min = currentNumber;
+                }
+
+                if (currentNumber > max) {
+                    max = currentNumber;
+                }
+            }
+
+            jsConsole.writeLine("Max number is: " + max);
+            jsConsole.writeLine("Min number is: " + min);
+        }
+    </script>
+</body>
+</html>

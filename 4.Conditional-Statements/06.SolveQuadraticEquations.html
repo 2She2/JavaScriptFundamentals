@@ -1,0 +1,62 @@
+<!--
+    06.Write a script that enters the coefficients a, b and c of a quadratic equation
+       a*x2 + b*x + c = 0
+       and calculates and prints its real roots. Note that quadratic equations may have 0, 1 or 2 real roots.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Solve quadratic equation</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <label for="coeffA">Enter coeff a: </label>
+    <input type="text" id="coeffA" />
+    <br />
+    <label for="coeffB">Enter coeff b: </label>
+    <input type="text" id="coeffB" />
+    <br />
+    <label for="coeffC">Enter coeff c: </label>
+    <input type="text" id="coeffC" />
+    <br />
+    <button id="calcArea" onclick="findBiggest()">Solve equation</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function findBiggest() {
+            var coeffA = jsConsole.readFloat("#coeffA");
+            var coeffB = jsConsole.readFloat("#coeffB");
+            var coeffC = jsConsole.readFloat("#coeffC");
+
+            var square1;
+            var square2;
+
+            //Calculate discriminant by the formula: D = b*b - 4ac
+            var discriminant = (coeffB * coeffB) - (4 * coeffA * coeffC);
+
+            //If discriminant is lower than 0, there is no solution
+            if (discriminant < 0) {
+                jsConsole.writeLine("The equation has no square. It is linear equation!");
+            }
+                //If discriminant equals 0, there is only one square
+            else if (discriminant == 0) {
+                //Calculate the square by the formula x=-b/(2*a)
+                square1 = -coeffB / (2 * coeffA);
+
+                jsConsole.writeLine("The equation has one square: " + square1);
+            } else {  //If discriminant is greather than 0, the equation has two answers(squares)
+                //Calculate the both squares of the equation
+                square1 = (-coeffB + Math.sqrt(discriminant)) / (2 * coeffA);
+                square2 = (-coeffB - Math.sqrt(discriminant)) / (2 * coeffA);
+
+                jsConsole.writeLine("Square 1 is: " + square1);
+                jsConsole.writeLine("Square 2 is: " + square2);
+            }
+
+            jsConsole.writeLine("===========================");
+        }
+    </script>
+</body>
+</html>

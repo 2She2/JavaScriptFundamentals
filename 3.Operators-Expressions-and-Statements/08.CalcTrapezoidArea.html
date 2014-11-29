@@ -1,0 +1,40 @@
+<!--
+    08.Write an expression that calculates trapezoid's area by given sides a and b and height h.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculates trapezoid's area</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <label for="sideA">Enter side A: </label>
+    <input type="text" id="sideA" />
+    <br />
+    <label for="sideB">Enter side B: </label>
+    <input type="text" id="sideB" />
+    <br />
+    <label for="height">Enter height H: </label>
+    <input type="text" id="height" />
+    <br />
+    <button id="calcArea" onclick="calcTrapezoidArea()">Calculate area</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function calcTrapezoidArea() {
+            var sideA = jsConsole.readFloat("#sideA");
+            var sideB = jsConsole.readFloat("#sideB");
+            var height = jsConsole.readFloat("#height");
+
+            var midsegment = (sideA + sideB) / 2;
+            var trapezoidArea = midsegment * height;
+            // Round to the third digit after decimal symbol
+            trapezoidArea = Math.round(trapezoidArea * 1000) / 1000;
+
+            jsConsole.writeLine("Trapezoids area is: " + trapezoidArea);
+        }
+    </script>
+</body>
+</html>

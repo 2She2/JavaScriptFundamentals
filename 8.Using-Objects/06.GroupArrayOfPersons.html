@@ -1,0 +1,78 @@
+﻿<!--
+    06.Write a function that groups an array of persons by age, first or last name.
+       The function must return an associative array, with keys - the groups, and values -arrays with persons in this groups
+       Use function overloading (i.e. just one function)
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Group an array of persons by age, first or last name</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // Call the function, so the program execute
+        printGroupedPersons();
+
+        function printGroupedPersons() {
+            var persons = [],
+                groupedPersons = [];
+
+            persons[0] = buildPerson('Gosho', 'Ivanov', 35);
+            persons[1] = buildPerson('Pesho', 'Dimitrov', 25);
+            persons[2] = buildPerson('Gosho', 'Kolev', 29);
+            persons[3] = buildPerson('Pesho', 'Ivanov', 25);
+            persons[4] = buildPerson('Sasho', 'Dimitrov', 35);
+
+            // Change the property to age, firstname or lastname, to see the result
+            groupedPersons = groupPersons(persons, 'age'); // change 'age'
+
+            for (var person in groupedPersons) {
+                jsConsole.writeLine(groupedPersons[person]);
+            }
+        }
+
+        // For each "propertyToGroupBy" we make array at the current array index.
+        // It's important to check if we alreday have the same property in the array
+        function groupPersons(persons, propertyToGroupBy) {
+            var groupedPersons = [],
+                currentProperty = '',
+                i = 0,
+                l = 0,
+                j = 0,
+                counter = 0;
+
+            for (i = 0, l = persons.length; i < l; i++) {
+                currentProperty = persons[i][propertyToGroupBy];
+
+                if (!groupedPersons.hasOwnProperty(currentProperty)) {
+                    groupedPersons[currentProperty] = [];
+                    counter = 0;
+
+                    for (j = 0; j < l; j++) {
+                        if (persons[j][propertyToGroupBy] === currentProperty) {
+                            groupedPersons[currentProperty][counter] = persons[j];
+                            counter++;
+                        }
+                    }
+                }
+            }
+
+            return groupedPersons;
+        }
+
+        function buildPerson(firstname, lastname, age) {
+            return {
+                firstname: firstname,
+                lastname: lastname,
+                age: age,
+                toString: function () { return this.firstname + ' ' + this.lastname; }
+            }
+        }
+    </script>
+</body>
+
+</html>

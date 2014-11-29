@@ -1,0 +1,53 @@
+<!--
+    04.Write a script that finds the lexicographically smallest and largest property in document, window and navigator objects
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Find smallest and largest property</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <button onclick="checkProps()">Find smallest and largest property</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function checkProps() {
+            findSmallestAndLargestProperty(document);
+            findSmallestAndLargestProperty(window);
+            findSmallestAndLargestProperty(navigator);
+        }
+
+        function findSmallestAndLargestProperty(obj) {
+            // In order to find lexicographically smallest and largest properties, we need lexicographically large and small strings
+            var smallestProperty = "zzzzzzzzzzzzzz";
+            var largestProperty = "";
+
+            var property;
+
+            for (property in obj) {
+                if (obj[property] == null) {
+                    continue;
+                }
+
+                // We can ".toString()" to "property", but it work without it
+                if (property < smallestProperty) {
+                    smallestProperty = property;
+                }
+
+                if (property > largestProperty) {
+                    largestProperty = property;
+                }
+            }
+
+            jsConsole.writeLine(obj);
+            jsConsole.writeLine("Smallest property: " + smallestProperty);
+            jsConsole.writeLine("Largest property: " + largestProperty);
+            jsConsole.writeLine("=========================================");
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!--
+    02.Write a script that compares two char arrays lexicographically (letter by letter).
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Compares two char arrays lexicographically</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <label for="firstCharArr">Enter first char array: </label>
+    <input type="text" id="firstCharArr" />
+    <br />
+    <label for="secondCharArr">Enter second char array: </label>
+    <input type="text" id="secondCharArr" />
+    <br />
+    <button id="number" onclick="compareArrays()">Compare arrays</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function compareArrays() {
+            var firstCharArr = jsConsole.read("#firstCharArr");
+            var secondCharArr = jsConsole.read("#secondCharArr");
+
+            var shorterArr = firstCharArr;
+            var longerArr = secondCharArr;
+
+            if (firstCharArr.length > secondCharArr.length) {
+                shorterArr = secondCharArr;
+                longerArr = firstCharArr;
+            }
+
+            var isFirstArrFound = false;
+
+            for (var i = 0; i < shorterArr.length; i++) {
+                if (firstCharArr[i] < secondCharArr[i]) {
+                    jsConsole.writeLine(firstCharArr + " is before " + secondCharArr);
+                    isFirstArrFound = true;
+                    break
+                }
+                else if (firstCharArr[i] > secondCharArr[i]) {
+                    jsConsole.writeLine(secondCharArr + " is before " + firstCharArr);
+                    isFirstArrFound = true;
+                    break;
+                }
+
+                if (i == shorterArr.length - 1 && !isFirstArrFound) {
+                    jsConsole.writeLine(shorterArr + " is before " + longerArr);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!--
+    07.Write a script that finds the greatest of given 5 variables.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Finds the greatest of given 5 variables</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <label for="firstNumber">Enter first number: </label>
+    <input type="text" id="firstNumber" />
+    <br />
+    <label for="secondNumber">Enter second number: </label>
+    <input type="text" id="secondNumber" />
+    <br />
+    <label for="thirdNumber">Enter third number: </label>
+    <input type="text" id="thirdNumber" />
+    <br />
+    <label for="fourthNumber">Enter fourth number: </label>
+    <input type="text" id="fourthNumber" />
+    <br />
+    <label for="fifthNumber">Enter fifth number: </label>
+    <input type="text" id="fifthNumber" />
+    <br />
+    <button id="calcArea" onclick="findGreatest()">Find greatest</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function findGreatest() {
+            // Asign values in to an array
+            var numbers = new Array(5);
+            numbers[0] = jsConsole.readFloat("#firstNumber");
+            numbers[1] = jsConsole.readFloat("#secondNumber");
+            numbers[2] = jsConsole.readFloat("#thirdNumber");
+            numbers[3] = jsConsole.readFloat("#fourthNumber");
+            numbers[4] = jsConsole.readFloat("#fifthNumber");
+
+            var greatestNumber = numbers[0];
+
+            // On each iteration we check, if current number is greater than "greatestNumber"
+            for (var i = 0; i < numbers.length; i++) {
+                if (numbers[i] > greatestNumber) {
+                    greatestNumber = numbers[i];
+                }
+            }
+
+            jsConsole.writeLine("Greatest number is: " + greatestNumber);
+        }
+    </script>
+</body>
+</html>

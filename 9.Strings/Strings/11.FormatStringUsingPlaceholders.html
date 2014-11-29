@@ -1,0 +1,69 @@
+﻿<!--
+    11.Write a function that formats a string using placeholders:
+        var str = stringFormat("Hello {0}!","Peter");
+        //str = "Hello Peter!";
+    The function should work with up to 30 placeholders and all types
+        var format = "{0}, {1}, {0} text {2}";
+        var str = stringFormat(format,1,"Pesho","Gosho");
+        //str = "1, Pesho, 1 text Gosho"
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Format a string using placeholders</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        input {
+            width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <label for="stringFormat">Enter string format: </label>
+    <input type="text" id="stringFormat" />
+    <br />
+    <label for="arguments">Enter arguments on one line, separated only by comma "," : </label>
+    <input type="text" id="arguments" />
+    <br />
+    <button onclick="printFormattedString()">Format string</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function printFormattedString() {
+            var input = jsConsole.read('#stringFormat'),
+                argsLine = jsConsole.read('#arguments'),
+                args,
+                formattedString;
+
+            args = argsLine.split(',');
+
+            // It is allowed to read arguments from the browser, or
+            // directly put arguments in the function: stringFormat(input, 'pesho', 123, 'goshko', 987);
+            formattedString = stringFormat(input, args);
+
+            jsConsole.writeLine(formattedString);
+        }
+
+        // Check if we put array of arguments or separated arguments
+        function stringFormat(format, args) {
+            var i,
+                l;
+
+            if (arguments[1] instanceof Array) {
+                for (i = 0, l = args.length; i < l; i++) {
+                    format = format.replace('{' + i + '}', args[i]);
+                }
+            } else {
+                for (i = 0, l = arguments.length; i < l; i++) {
+                    format = format.replace('{' + i + '}', arguments[i + 1]);
+                }
+            }
+
+            return format;
+        }
+    </script>
+</body>
+
+</html>

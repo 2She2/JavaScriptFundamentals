@@ -1,0 +1,81 @@
+﻿<!--
+    12.Write a function that creates a HTML UL using a template for every HTML LI.
+       The source of the list should an array of elements.
+       Replace all placeholders marked with –{…}–   with the value of the corresponding property of the object.
+       Example:
+            <div data-type="template" id="list-item">
+            <strong>-{name}-</strong> <span>-{age}-</span>
+            /div>
+
+            var people = [{name: "Peter", age: 14},…];
+            var tmpl = document.getElementById("list-item").innerHtml;
+            var peopleList = generateList(people,template);
+            //peopleList = "<ul><li><strong>Peter</strong> <span>14</span></li><li>…</li>…</ul>"
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create a HTML UL using a template for every HTML LI</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        input {
+            width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <label for="template">Enter a template : </label>
+    <input type="text" id="template" />
+    <br />
+    <p>Default template:</p>
+    <div data-type="template" id="list-item">
+        <strong>-{name}-</strong> <span>-{age}-</span>
+    </div>
+    <br />
+    <button onclick="printList()">Format string</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function printList() {
+            var people = [{ name: "Peter", age: 14 },
+                          { name: "Gosho", age: 24 },
+                          { name: "Sasho", age: 34 },
+                          { name: 'Tosho', age: 44 }],
+                inputTemplate = jsConsole.read('#template'),
+                defaultTemplate = document.getElementById('list-item').innerHTML,
+                peopleList;
+
+            // If no template is entered, the default one is used
+            if (inputTemplate === '') {
+                peopleList = generateList(people, defaultTemplate);
+            } else {
+                peopleList = generateList(people, inputTemplate);
+            }
+
+
+            jsConsole.writeLine(peopleList);
+        }
+
+        function generateList(people, template) {
+            var peopleList = '<ul>',
+                currentListItem,
+                i,
+                l;
+
+            for (i = 0, l = people.length; i < l; i++) {
+                currentListItem = template.replace('-{name}-', people[i].name);
+                currentListItem = currentListItem.replace('-{age}-', people[i].age);
+
+                peopleList += '<li>' + currentListItem + '</li>';
+            }
+
+            peopleList += '</ul>';
+
+            return peopleList;
+        }
+    </script>
+</body>
+
+</html>

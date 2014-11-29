@@ -1,0 +1,57 @@
+﻿<!--
+    07.Write an expression that checks if given positive integer number n (n ≤ 100) is prime. E.g. 37 is prime.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Check if number is prime</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <label for="number">Enter positive integer number: </label>
+    <input type="text" id="number" />
+    <br />
+    <button id="checkNumber" onclick="checkPrimeNumber()">Check number</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function checkPrimeNumber() {
+            var inputNumber = jsConsole.readInteger("#number");
+
+            if (inputNumber < 1) {
+                jsConsole.writeLine("Please enter positive integer number!");
+            }
+            else if (inputNumber == 1) {
+                jsConsole.writeLine("1 is Not prime!");
+            }
+            else if (inputNumber == 2) {
+                jsConsole.writeLine("2 is prime!");
+            } else {
+                // Use bitwise operator to check if number is even. If it is even, it can't be prime
+                if ((inputNumber & 1) == 0) {
+                    jsConsole.writeLine(inputNumber + " is Not prime!");
+                } else {
+                    // We need to check the number only to the square root of the number
+                    var inputSqrt = Math.sqrt(inputNumber);
+
+                    for (var i = 3; i <= inputSqrt; i++) {
+                        // There is no point to divide by even numbers, bacause we already check that the number is not even. This optimization is useful for big numbers
+                        if ((inputNumber & 1) == 0) {
+                            continue;
+                        }
+                        // If we find that the number is not prime, we terminate the function(method) with the key word "return"
+                        if (inputNumber % i == 0) {
+                            jsConsole.writeLine(inputNumber + " is Not prime!");
+                            return;
+                        }
+                    }
+
+                    jsConsole.writeLine(inputNumber + " is prime!");
+                }
+            }
+        }
+    </script>
+</body>
+</html>

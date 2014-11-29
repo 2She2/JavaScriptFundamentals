@@ -1,0 +1,61 @@
+﻿<!--
+    03.Write a function that makes a deep copy of an object
+       The function should work for both primitive and reference types
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Make deep copy</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // Call the function, so the program execute
+        copyNumber();
+
+        function copyNumber() {
+            var source = 'asfg',
+                copy,
+                obj = {
+                    firstName: 'Pesho',
+                    age: 99,
+                    isMale: true,
+                    toString: function () { return 'Name: ' + this.firstName + ', age: ' + ', is male: ' + this.isMale; }
+                }
+
+            copy = makeDeepCopy(source);
+            jsConsole.writeLine(copy);
+
+            copy = makeDeepCopy(obj);
+            jsConsole.writeLine(copy);
+        }
+
+
+        // If variable is primitive we just return it's value, else we make a deep copy of the object
+        function makeDeepCopy(source) {
+            var deepCopy = new Object();
+
+            if (typeof source === 'number' || typeof source === 'string' || typeof source === 'boolean') {
+                return source;
+            }
+
+            for (var property in source) {
+                if (source[property] && source[property].constructor && source[property].constructor === Object) {
+                    deepCopy[property] = source[property] || {};
+                    // arguments.callee refers to the function itself
+                    // arguments.callee is deprecated, but it's way too early for this type of things!
+                    arguments.callee(source[property]);
+                } else {
+                    deepCopy[property] = source[property];
+                }
+            }
+
+            return deepCopy;
+        }
+    </script>
+</body>
+
+</html>

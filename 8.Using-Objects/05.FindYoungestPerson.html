@@ -1,0 +1,60 @@
+﻿<!--
+    05.Write a function that finds the youngest person in a given array of persons and prints his/hers full name
+       Each person have properties firstname, lastname and age
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Find the youngest person in a given array of persons</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // Call the function, so the program execute
+        printYoungestPersonFullName();
+
+        function printYoungestPersonFullName() {
+            var persons = [],
+                youngestPerson;
+
+            persons[0] = buildPerson('Gosho', 'Goshev', 35);
+            persons[1] = buildPerson('Pesho', 'Peshev', 21);
+            persons[2] = buildPerson('Ivan', 'Ivanov', 29);
+            persons[3] = buildPerson('Sasho', 'Sashev', 25);
+            persons[4] = buildPerson('Dimitar', 'Dimitrov', 33);
+
+            youngestPerson = findYoungestPerson(persons);
+
+            jsConsole.writeLine('Youngest person is: ' + persons[youngestPerson]);
+        }
+
+        // It's better to return the index of the array, not the whole object
+        function findYoungestPerson(persons) {
+            var youngestPersonIndex = 0,
+                i = 0,
+                l = 0;
+
+            for (i = 0, l = persons.length; i < l; i++) {
+                if (persons[i].age < persons[youngestPersonIndex].age) {
+                    youngestPersonIndex = i;
+                }
+            }
+
+            return youngestPersonIndex;
+        }
+
+        function buildPerson(firstname, lastname, age) {
+            return {
+                firstname: firstname,
+                lastname: lastname,
+                age: age,
+                toString: function () { return this.firstname + ' ' + this.lastname; }
+            }
+        }
+    </script>
+</body>
+
+</html>

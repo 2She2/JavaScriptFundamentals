@@ -1,0 +1,33 @@
+<!--
+    01. Write an expression that checks if given integer is odd or even.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Odd or even</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <label for="number">Enter integer number: </label>
+    <input type="text" id="number" />
+    <br />
+    <button id="checkNumber" onclick="checkNumber()">Check number</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function checkNumber() {
+            // Read the number from the input field
+            var inputNumber = jsConsole.readInteger("#number");
+
+            if (inputNumber % 2 == 0) {
+                jsConsole.writeLine(inputNumber + " is even");
+            } else {
+                jsConsole.writeLine(inputNumber + " is odd");
+            }
+        }
+
+    </script>
+</body>
+</html>

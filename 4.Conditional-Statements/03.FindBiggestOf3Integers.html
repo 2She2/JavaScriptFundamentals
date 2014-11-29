@@ -1,0 +1,63 @@
+<!--
+    03.Write a script that finds the biggest of three integers using nested if statements.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Find biggest of three integers</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <label for="firstNumber">Enter first number: </label>
+    <input type="text" id="firstNumber" />
+    <br />
+    <label for="secondNumber">Enter second number: </label>
+    <input type="text" id="secondNumber" />
+    <br />
+    <label for="thirdNumber">Enter third number: </label>
+    <input type="text" id="thirdNumber" />
+    <br />
+    <button id="calcArea" onclick="findBiggest()">Find biggest</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function findBiggest() {
+            var numbers = new Array(3);
+            firstNumber = jsConsole.readInteger("#firstNumber");;
+            secondNumber = jsConsole.readInteger("#secondNumber");
+            thirdNumber = jsConsole.readInteger("#thirdNumber");
+
+            var biggestNumber = firstNumber;
+
+            if (firstNumber > secondNumber) {
+                if (firstNumber > thirdNumber) {
+                    biggestNumber = firstNumber;
+                }
+                else if (thirdNumber > firstNumber) {
+                    biggestNumber = thirdNumber;
+                }
+            }
+            else if (secondNumber > firstNumber) {
+                if (secondNumber > thirdNumber) {
+                    biggestNumber = secondNumber;
+                }
+                else if (thirdNumber > secondNumber) {
+                    biggestNumber = thirdNumber;
+                }
+            }
+            else if (thirdNumber > firstNumber) {
+                if (thirdNumber > secondNumber) {
+                    biggestNumber = thirdNumber;
+                }
+                else if (secondNumber > thirdNumber) {
+                    biggestNumber = thirdNumber;
+                }
+            }
+
+            jsConsole.writeLine("Biggest number is: " + biggestNumber);
+        }
+    </script>
+</body>
+</html>

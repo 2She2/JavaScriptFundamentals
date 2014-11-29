@@ -1,0 +1,93 @@
+﻿<!--
+    05.Write a function that counts how many times given number appears in given array.
+       Write a test function to check if the function is working correctly.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>How many times given number appears in given array</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        input {
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <label for="numberSequence">Enter a number sequence separated with ", ": </label>
+    <input type="text" id="numberSequence" />
+    <br />
+    <label for="number">Enter a number to search for: </label>
+    <input type="text" id="number" />
+    <br />
+    <button onclick="printNumberAppearance()">Find divs count</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function printNumberAppearance() {
+            var inputSequence = jsConsole.read('#numberSequence'),
+                numberToSearch = jsConsole.readFloat('#number'),
+                numberToSearchCount = 0,
+                separator = ', ',
+                isCountingFunctionCorrect = false;
+
+            // Input number sequence is needed to be parse to a numbers, so the comparison is correct
+            inputSequence = inputSequence.split(separator);
+            inputSequence = parseStringToArrayOfFloats(inputSequence);
+
+            numberToSearch = parseFloat(numberToSearch);
+            numberToSearchCount = findNumberAppearance(inputSequence, numberToSearch);
+
+            jsConsole.writeLine('Number ' + numberToSearch + ' appear ' + numberToSearchCount + ' times');
+
+            isCountingFunctionCorrect = checkFunctionFindNumberAppearance();
+            jsConsole.writeLine('Is function working correctly: ' + isCountingFunctionCorrect);
+        }
+
+        // Check the function with hardcoded array, so we know the correct answer in advance
+        function checkFunctionFindNumberAppearance() {
+            var numbersToCheck = [2, 6, 9, 6, 6, 2, 9, 2, 2, 2],
+                firstNumberToCheckCount = 5,
+                secondNumberToCheckCount = 3,
+                firstNumberCheck = findNumberAppearance(numbersToCheck, 2),
+                secondNumberCheck = findNumberAppearance(numbersToCheck, 6);
+
+            if (firstNumberCheck === firstNumberToCheckCount &&
+                secondNumberCheck === secondNumberToCheckCount) {
+                return true;
+            }
+
+            return false;
+        }
+
+        function findNumberAppearance(numbersArray, numberToSearchFor) {
+            var numberAppearanceCount = 0,
+                i = 0,
+                l = 0;
+
+            for (i = 0, l = numbersArray.length; i < l; i++) {
+                if (numbersArray[i] === numberToSearchFor) {
+                    numberAppearanceCount++;
+                }
+            }
+
+            return numberAppearanceCount;
+        }
+
+        function parseStringToArrayOfFloats(numbersString) {
+            var numbersArray = [],
+                i = 0,
+                l = 0;
+
+            for (i = 0, l = numbersString.length; i < l; i++) {
+                numbersArray[i] = parseFloat(numbersString[i]);
+            }
+
+            return numbersArray;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+﻿<!--
+    04.Write a function that checks if a given object contains a given property
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checks if a given object contains a given property</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // Call the function, so the program execute
+        checkIfhasPropertyWorks();
+
+        function checkIfhasPropertyWorks() {
+            var testObject = {
+                firstName: 'Pesho',
+                LastName: 'Peshev',
+                age: 99,
+                toString: function () { return this.firstName + ' ' + this.LastName + ', age: ' + this.age;}
+            },
+            doesHaveProperty = false;
+
+            jsConsole.writeLine(testObject);
+
+            doesHaveProperty = hasProperty(testObject, 'age');
+            jsConsole.writeLine('Does contain property "age": ' + doesHaveProperty);
+        }
+
+        function hasProperty(obj, property) {
+            var asd = new Object();
+
+            for (var prop in obj) {
+                if (prop === property) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    </script>
+</body>
+
+</html>

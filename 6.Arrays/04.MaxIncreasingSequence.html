@@ -1,0 +1,79 @@
+﻿<!--
+    04.Write a script that finds the maximal increasing sequence in an array.
+       Example: {3, 2, 3, 4, 2, 2, 4}  {2, 3, 4}.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Maximal sequence of increasing elements</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        input {
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <p>Sequence of numbers must be separated by comma and space: ", "</p>
+    <p>If there are two equally long sequence, the first one will be shown!</p>
+    <label for="sequence">Enter sequence of numbers: </label>
+    <input type="text" id="sequence" />
+    <br />
+    <button onclick="findSequence()">Find max sequence</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function findSequence() {
+            var numSequence = jsConsole.read('#sequence'),
+                separator = ', ',
+                counter = 1,
+                maxSequence = 1,
+                maxSequenceNumber = 0,
+                i = 1,
+                curValue = 0,
+                prevValue = 0,
+                minSeqValue = 0;
+
+            // Extract the numbers from the input data
+            numSequence = numSequence.split(separator);
+
+            // We need to parse the numbers
+            curValue = parseInt(numSequence[0]);
+            // Check if previous number is equal to the current, if not the counter is set to 1
+            for (i = 1; i < numSequence.length; i++) {
+                prevValue = curValue;
+                curValue = parseInt(numSequence[i]);
+
+                if (curValue - 1 === prevValue) {
+                    counter++;
+
+                    if (counter > maxSequence) {
+                        maxSequence = counter;
+                        maxSequenceNumber = curValue;
+                    }
+                } else {
+                    counter = 1;
+                }
+            }
+
+            // Calc the min value of the sequence
+            minSeqValue = maxSequenceNumber - maxSequence + 1;
+
+            // Display the maximal equal sequence
+            jsConsole.write('Max sequence length is: ');
+            for (i = 0; i < maxSequence; i++) {
+                jsConsole.write(minSeqValue);
+                minSeqValue++;
+
+                if (i < maxSequence - 1) {
+                    jsConsole.write(', ');
+                }
+            }
+
+            jsConsole.writeLine();
+        }
+    </script>
+</body>
+</html>

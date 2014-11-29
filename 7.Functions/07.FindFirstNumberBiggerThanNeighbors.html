@@ -1,0 +1,75 @@
+﻿<!--
+    07.Write a function that returns the index of the first element in array
+       that is bigger than its neighbors, or -1, if there’s no such element.
+       Use the function from the previous exercise.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Is number bigger than its two neighbors</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        input {
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <label for="numberSequence">Enter a number sequence separated with ", ": </label>
+    <input type="text" id="numberSequence" />
+    <br />
+    <button onclick="checkIsNumberBiggerThanNeighbors()">Find number</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function checkIsNumberBiggerThanNeighbors() {
+            var numbersSequence = jsConsole.read('#numberSequence'),
+                separator = ', ',
+                isNumberBigger = false,
+                i = 0,
+                l = 0;
+
+            // Input number sequence is needed to be parse to a numbers, so the comparison is correct
+            numbersSequence = numbersSequence.split(separator);
+            numbersSequence = parseStringToArrayOfInteger(numbersSequence);
+
+            for (i = 0, l = numbersSequence.length; i < l; i++) {
+                isNumberBigger = compareNeighborNumbers(numbersSequence, numbersSequence[i], i);
+
+                if (isNumberBigger) {
+                    jsConsole.writeLine(numbersSequence[i] + " is the first number that is bigger than it's neighbors");
+                    break;
+                }
+            }
+        }
+
+        // Check if number is bigger than it's two neighbors
+        function compareNeighborNumbers(array, number, numberIndex) {
+            var isNumberBigger = false;
+
+            if (numberIndex > 0 && numberIndex < array.length - 1) {
+                if (array[numberIndex - 1] < number && array[numberIndex + 1] < number) {
+                    isNumberBigger = true;
+                }
+            }
+
+            return isNumberBigger;
+        }
+
+        function parseStringToArrayOfInteger(numbersSequence) {
+            var numbersArray = [],
+                i = 0,
+                l = 0;
+
+            for (i = 0, l = numbersSequence.length; i < l; i++) {
+                numbersArray[i] = parseInt(numbersSequence[i]);
+            }
+
+            return numbersArray;
+        }
+    </script>
+</body>
+
+</html>

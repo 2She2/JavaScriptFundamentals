@@ -1,0 +1,50 @@
+﻿<!--
+    06.Write a function that extracts the content of a html page given as text.
+       The function should return anything that is in a tag, without the tags:
+    <html><head><title>Sample site</title></head><body><div>text<div>more text</div>and more...</div>in body</body></html>
+    result:
+    Sample sitetextmore textand more...in body
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Extract the content of a html page given as text</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <header>Header</header>
+    <p>Paragraph</p>
+    <section>Sections</section>
+    <div>Some text inside the div</div>
+    <button onclick="extractContent()">Extract text</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        // Using the DOM tree to extract text in head and body
+        function extractContent() {
+            var allHeadTags = document.head.getElementsByTagName('*'),
+                allBodyTags = document.body.getElementsByTagName('*'),
+                allText = '',
+                currentText = '',
+                i, l;
+
+            for (i = 0, l = allHeadTags.length; i < l; i++) {
+                currentText = (allHeadTags[i].textContent || allHeadTags[i].innerText || '');
+                currentText = currentText.trim();
+                allText += currentText;
+            }
+
+            for (i = 0, l = allBodyTags.length; i < l; i++) {
+                currentText = (allBodyTags[i].textContent || allBodyTags[i].innerText || '');
+                currentText = currentText.trim();
+                allText += currentText;
+            }
+
+            jsConsole.writeLine(allText);
+        }
+    </script>
+</body>
+
+</html>

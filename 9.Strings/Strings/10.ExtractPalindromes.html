@@ -1,0 +1,70 @@
+﻿<!--
+    10.Write a program that extracts from a given text all palindromes, e.g. "ABBA", "lamal", "exe".
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Extract from a given text all palindromes</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        textarea {
+            width: 600px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <label for="text">Enter text: </label>
+    <textarea id="text"></textarea>
+    <br />
+    <button onclick="extractPalindromes()">Extract palindromes</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function extractPalindromes() {
+            var input = jsConsole.read('#text'),
+                palindromes = [],
+                words = [],
+                separators = [',', ' ', '.', '!', ],
+                pattern = /\W/, // this means all non-word and non-digit symbols
+                currentWord,
+                i,
+                l;
+            
+            words = input.split(pattern);
+
+            for (i = 0, l = words.length; i < l; i++) {
+                currentWord = words[i];
+                
+                // One letter words are not Palindromes!
+                // This is also a way to pass the empty array indexes
+                if (currentWord.length > 1) {
+                    if (checkIsPalindrome(currentWord)) {
+                        palindromes.push(currentWord);
+                    }
+                }
+            }
+
+            jsConsole.writeLine(palindromes.join('; '));
+        }
+
+        // Only need to take the half word and compare it with the other half
+        function checkIsPalindrome(word) {
+            var i,
+                l = word.length,
+                halfLength = parseInt(word.length / 2);
+
+            for (i = 0; i < halfLength; i++) {
+                if (word[i] !== word[l - i - 1]) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    </script>
+</body>
+
+</html>

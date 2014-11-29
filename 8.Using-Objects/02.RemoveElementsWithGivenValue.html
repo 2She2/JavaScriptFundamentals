@@ -1,0 +1,69 @@
+﻿<!--
+    02.Write a function that removes all elements with a given value
+       Attach it to the array type
+       Read about prototype and how to attach methods
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Remove all elements with a given value</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        input {
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <label for="numbersSequence">Enter a number sequence separated with ", ": </label>
+    <input type="text" id="numbersSequence" />
+    <br />
+    <label for="numberToRemove">Enter an integer number to remove: </label>
+    <input type="text" id="numberToRemove" />
+    <br />
+    <button onclick="main()">Remove number</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function main() {
+            var numbersSequence = jsConsole.read('#numbersSequence'),
+                numberToRemove = jsConsole.readFloat('#numberToRemove');
+
+            numbersSequence = parseStringToNumbersArray(numbersSequence);
+            numbersSequence.removeNumber(numberToRemove);
+
+            jsConsole.writeLine(numbersSequence.join(', '));
+        }
+
+        // Attach function to array types
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype
+        Array.prototype.removeNumber = function (number) {
+            for (var i = 0; i < this.length; i++) {
+                if (this[i] === number) {
+                    this.splice(i, 1);
+                }
+            }
+        }
+
+        function parseStringToNumbersArray(str) {
+            var numbers = [],
+                i = 0,
+                l = 0,
+                currentNumber = 0,
+                separator = ', ';
+
+            str = str.split(separator);
+
+            for (i = 0, l = str.length; i < l; i++) {
+                currentNumber = parseFloat(str[i]);
+                numbers[i] = currentNumber;
+            }
+
+            return numbers;
+        }
+    </script>
+</body>
+
+</html>

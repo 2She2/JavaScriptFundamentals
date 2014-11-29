@@ -1,0 +1,28 @@
+<!--
+    03.Try typeof on all variables you created.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Typeof on all variables</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        var int = 5,
+            floating = 1.46,
+            bool = true,
+            str = 'some text',
+            obj = new Object();
+
+        jsConsole.writeLine(int + ' -> ' + typeof (int));
+        jsConsole.writeLine(floating + ' -> ' + typeof (floating));
+        jsConsole.writeLine(bool + ' -> ' + typeof (bool));
+        jsConsole.writeLine(str + ' -> ' + typeof (str));
+        jsConsole.writeLine(obj + ' -> ' + typeof (obj));
+    </script>
+</body>
+</html>

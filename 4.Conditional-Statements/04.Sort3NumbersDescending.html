@@ -1,0 +1,65 @@
+<!--
+    04.Sort 3 real values in descending order using nested if statements.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sort three numbers in descending order</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <label for="firstNumber">Enter first number: </label>
+    <input type="text" id="firstNumber" />
+    <br />
+    <label for="secondNumber">Enter second number: </label>
+    <input type="text" id="secondNumber" />
+    <br />
+    <label for="thirdNumber">Enter third number: </label>
+    <input type="text" id="thirdNumber" />
+    <br />
+    <button id="calcArea" onclick="findBiggest()">Find biggest</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function findBiggest() {
+            var numbers = new Array(3);
+            firstNumber = jsConsole.readInteger("#firstNumber");;
+            secondNumber = jsConsole.readInteger("#secondNumber");
+            thirdNumber = jsConsole.readInteger("#thirdNumber");
+
+            // The numbers must not be equal, for the program to work correctly
+            if (firstNumber > secondNumber) {
+                if (secondNumber > thirdNumber) {
+                    jsConsole.writeLine(firstNumber + " > " + secondNumber + " > " + thirdNumber);
+                }
+                else if (thirdNumber > firstNumber) {
+                    jsConsole.writeLine(thirdNumber + " > " + firstNumber + " > " + secondNumber);
+                }
+            }
+            else if (secondNumber > firstNumber) {
+                if (firstNumber > thirdNumber) {
+                    jsConsole.writeLine(secondNumber + " > " + firstNumber + " > " + thirdNumber);
+                }
+                else if (thirdNumber > secondNumber) {
+                    jsConsole.writeLine(thirdNumber + " > " + secondNumber + " > " + firstNumber);
+                }
+            }
+            else if (thirdNumber > firstNumber) {
+                if (firstNumber > secondNumber) {
+                    jsConsole.writeLine(thirdNumber + " > " + firstNumber + " > " + secondNumber);
+                }
+                else if (secondNumber > thirdNumber) {
+                    jsConsole.writeLine(secondNumber + " > " + thirdNumber + " > " + firstNumber);
+                }
+            }
+            else if (thirdNumber > secondNumber) {
+                if (firstNumber > thirdNumber) {
+                    jsConsole.writeLine(firstNumber + " > " + thirdNumber + " > " + secondNumber);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

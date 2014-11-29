@@ -1,0 +1,42 @@
+﻿<!--
+    05.Write a function that replaces non breaking white-spaces in a text with &nbsp;
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Replace non breaking white-spaces in a text with &nbsp</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        textarea {
+            width: 600px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <label for="text">Enter text: </label>
+    <textarea id="text"></textarea>
+    <br />
+    <button onclick="replaceNbsp()">Replace</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        // You need to open the browser's console to see the rezult
+        function replaceNbsp() {
+            var input = jsConsole.read('#text');
+
+            // You need to open the browser's console to see the rezult
+            // first way
+            input = input.replace(/\s/g, '&nbsp;');
+
+            //// second way
+            //input = input.split(' ').join('\&nbsp;');
+            
+            console.log(input);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!--
+    01.Write an if statement that examines two integer variables and exchanges their values if the first one is greater than the second one.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exchanges values if the first one is greater than the second one</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <label for="firstValue">Enter first value: </label>
+    <input type="text" id="firstValue" />
+    <br />
+    <label for="secondValue">Enter second value: </label>
+    <input type="text" id="secondValue" />
+    <br />
+    <button id="calcArea" onclick="exchangeValues()">Check values</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function exchangeValues() {
+            var firstValue = jsConsole.readFloat("#firstValue");
+            var secondValue = jsConsole.readFloat("#secondValue");
+
+            if (firstValue > secondValue) {
+                // Exchange values
+                var buffer = firstValue;
+                firstValue = secondValue;
+                secondValue = buffer;
+
+                jsConsole.writeLine("Values were exchanged!");
+                jsConsole.writeLine( "First value: " + firstValue);
+                jsConsole.writeLine("Second calue: " + secondValue);
+                jsConsole.writeLine("======================");
+            }
+            else if (firstValue == secondValue) {
+                jsConsole.writeLine("Values are equal. No need to exchage them!");
+                jsConsole.writeLine("======================");
+            } else {
+                jsConsole.writeLine("Second value is greater than the first. No need to exchage them!");
+                jsConsole.writeLine("======================");
+            }
+        }
+    </script>
+</body>
+</html>

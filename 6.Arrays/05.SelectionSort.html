@@ -1,0 +1,68 @@
+﻿<!--
+    05.Sorting an array means to arrange its elements in increasing order.
+    Write a script to sort an array. Use the "selection sort" algorithm: Find the smallest element, move it at the first position,
+    find the smallest from the rest, move it at the second position, etc.Hint: Use a second array
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sort array using "selection sort"</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        input {
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <p>Sequence of numbers must be separated by comma and space: ", "</p>
+    <label for="sequence">Enter sequence of numbers: </label>
+    <input type="text" id="sequence" />
+    <br />
+    <button onclick="sortArray()">Sort array</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function sortArray() {
+            var inputData = jsConsole.read('#sequence'),
+                i = 0,
+                j = 0,
+                separator = ', ',
+                curNumber = 0,
+                buffer = 0,
+                isLowerFound = false;
+
+            inputData = inputData.split(separator);
+
+            // Parse input to numbers so we can correctly compare numbers
+            for (i = 0; i < inputData.length; i++) {
+                inputData[i] = parseFloat(inputData[i]);
+            }
+
+            // Find the lowest number and swap it's value with current number. Then find the next lowest and swap it's value with next number...
+            for (i = 0; i < inputData.length - 1; i++) {
+                curNumber = i;
+
+                for (j = i + 1; j < inputData.length; j++) {
+                    if (inputData[j] < inputData[curNumber]) {
+                        curNumber = j;
+                        isLowerFound = true;
+                    }
+                }
+
+                // swap values if lower number is found
+                if (isLowerFound === true) {
+                    buffer = inputData[i];
+                    inputData[i] = inputData[curNumber];
+                    inputData[curNumber] = buffer;
+                    isLowerFound = false;
+                }
+            }
+
+            jsConsole.writeLine(inputData.join(separator));
+        }
+    </script>
+</body>
+</html>

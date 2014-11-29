@@ -1,0 +1,117 @@
+﻿<!--
+    07.Write a program that finds the index of given element in a sorted array of integers
+       by using the binary search algorithm (find it in Wikipedia).
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Find the most frequent number in an array</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        input {
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <p>Sequence of numbers must be separated by comma and space: ", "</p>
+    <label for="sequence">Enter sequence of numbers: </label>
+    <input type="text" id="sequence" />
+    <br />
+    <label for="number">Enter number to find</label>
+    <input type="text" id="number" />
+    <br />
+    <button onclick="findIndex()">Find index</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function findIndex() {
+            var inputArray = jsConsole.read('#sequence'),
+                numberToFind = jsConsole.read('#number'),
+                separator = ', ',
+                numberIndex = -1;
+
+            inputArray = selectionSort(inputArray);
+            numberIndex = binarySearch(inputArray, numberToFind);
+
+            jsConsole.writeLine('Sorted array: ' + inputArray.join(', '));
+
+            if (numberIndex > -1) {
+                jsConsole.writeLine('Number ' + numberToFind + ' index is: ' + numberIndex);
+            } else {
+                jsConsole.writeLine('Number ' + numberToFind + ' was Not found!');
+            }
+        }
+
+        function binarySearch(array, numberToFind) {
+            var min = 0,
+                max = array.length,
+                middle = 0;
+
+            while (max >= min) {
+                // There are different ways to calc mid point. The following way ensure that there will not be overflow!
+                middle = Math.round(((max - min) / 2) + min);
+
+                if (array[middle] == numberToFind) {
+                    return middle;
+                }
+
+                if (array[middle] > numberToFind) {
+                    max = middle - 1;
+                } else {
+                    min = middle + 1;
+                }
+            }
+
+            return -1;
+        }
+
+        // Also we can use the '.sort' function in JavaScript
+        function selectionSort(numbersString) {
+            // Parse input to numbers so we can correctly compare numbers
+            var inputData = parseArrayToFloat(numbersString),
+                i = 0,
+                j = 0,
+                curNumber = 0,
+                buffer = 0,
+                isLowerFound = false;
+            
+            // Find the lowest number and swap it's value with current number. Then find the next lowest and swap it's value with next number...
+            for (i = 0; i < inputData.length - 1; i++) {
+                curNumber = i;
+
+                for (j = i + 1; j < inputData.length; j++) {
+                    if (inputData[j] < inputData[curNumber]) {
+                        curNumber = j;
+                        isLowerFound = true;
+                    }
+                }
+
+                // swap values if lower number is found
+                if (isLowerFound === true) {
+                    buffer = inputData[i];
+                    inputData[i] = inputData[curNumber];
+                    inputData[curNumber] = buffer;
+                    isLowerFound = false;
+                }
+            }
+
+            return inputData;
+        }
+
+        function parseArrayToFloat(array) {
+            var separator = ', ',
+
+            array = array.split(separator);
+            
+            for (i = 0; i < array.length; i++) {
+                array[i] = parseFloat(array[i]);
+            }
+
+            return array;
+        }
+    </script>
+</body>
+</html>

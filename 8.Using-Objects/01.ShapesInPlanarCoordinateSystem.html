@@ -1,0 +1,133 @@
+﻿<!--
+    01.Write functions for working with shapes in standard Planar coordinate system
+       Points are represented by coordinates P(X, Y)
+       Lines are represented by two points, marking their beginning and ending
+       L(P1(X1,Y1), P2(X2,Y2))
+       Calculate the distance between two points
+       Check if three segment lines can form a triangle
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Point objects</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <p>Enter first point coordinates: </p>
+    <label for="xCoordPoint1">Enter X coordinate: </label>
+    <input type="text" id="xCoordPoint1" />
+    <br />
+    <label for="yCoordPoint1">Enter Y coordinate: </label>
+    <input type="text" id="yCoordPoint1" />
+    <br />
+    <p>Enter second point coordinates: </p>
+    <label for="xCoordPoint2">Enter X coordinate: </label>
+    <input type="text" id="xCoordPoint2" />
+    <br />
+    <label for="yCoordPoint2">Enter Y coordinate: </label>
+    <input type="text" id="yCoordPoint2" />
+    <br />
+    <p>Enter third point coordinates, to check if the three point can form a line: </p>
+    <label for="xCoordPoint3">Enter X coordinate: </label>
+    <input type="text" id="xCoordPoint3" />
+    <br />
+    <label for="yCoordPoint3">Enter Y coordinate: </label>
+    <input type="text" id="yCoordPoint3" />
+    <br />
+    <button onclick="main()">Calc distance</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        // I'm not sure if making "main" function is a good idea, but it is necessary to divide the different logics
+        function main() {
+            var coordinates = readInputCoordinates(),
+                firstPoint = buildPoint(coordinates[0], coordinates[1]),
+                secondPoint = buildPoint(coordinates[2], coordinates[3]),
+                thirdPoint = buildPoint(coordinates[4], coordinates[5]),
+                distanceBetweenTwoPoints = 0,
+                arePointsInLine = false,
+                line = buildLine(firstPoint, secondPoint);
+
+            jsConsole.writeLine('First point object: ' + firstPoint);
+            jsConsole.writeLine('Line object: ' + line);
+
+            distanceBetweenTwoPoints = calculateDistanceBetweenTwoPoints(firstPoint, secondPoint);
+            jsConsole.writeLine('Distance between first and second point is: ' + distanceBetweenTwoPoints.toFixed(2));
+
+            distanceBetweenTwoPoints = calculateDistanceBetweenTwoPoints(secondPoint, thirdPoint);
+            jsConsole.writeLine('Distance between second and third point is: ' + distanceBetweenTwoPoints.toFixed(2));
+
+            arePointsInLine = checkIfThreePointsAreOnLine(firstPoint, secondPoint, thirdPoint);
+            jsConsole.writeLine('The three points are in line: ' + arePointsInLine);
+
+        }
+
+        // The formula is: distance*distance = (x1−x2)*(x1−x2) + (y1−y2)*(y1−y2)
+        function calculateDistanceBetweenTwoPoints(firstPoint, secondPoint) {
+            var squareDistanceBetweenPoints = 0,
+                distanceBetweenPoints = 0;
+
+            squareDistanceBetweenPoints = (firstPoint.xCoord - secondPoint.xCoord) * (firstPoint.xCoord - secondPoint.xCoord) +
+                                          (firstPoint.yCoord - secondPoint.yCoord) * (firstPoint.yCoord - secondPoint.yCoord);
+            distanceBetweenPoints = Math.sqrt(squareDistanceBetweenPoints);
+
+            return distanceBetweenPoints;
+        }
+
+        function buildPoint(xCoord, yCoord) {
+            return {
+                xCoord: xCoord,
+                yCoord: yCoord,
+                toString: function () { return 'X=' + this.xCoord + ' Y=' + yCoord; }
+            }
+        }
+
+        function buildLine(firstPoint, secondPoint) {
+            return {
+                firstPoint: firstPoint,
+                secondPoint: secondPoint,
+                toString: function () {
+                    return 'First point: ' + firstPoint.toString() + ' ,second point: ' + secondPoint.toString();
+                }
+            }
+        }
+
+        // The points (a,b), (m,n) and (x,y) are collinear if and only if
+        // (n−b)(x−m)=(y−n)(m−a)
+        // It is better to choose to multiply, instead of divide, because we may have to divide by 0!
+        function checkIfThreePointsAreOnLine(firstPoint, secondPoint, thirdPoint) {
+            var arePointsInLine = false,
+                leftEquationSide = (secondPoint.yCoord - firstPoint.yCoord) * (thirdPoint.xCoord - secondPoint.xCoord),
+                rightEquationSide = (thirdPoint.yCoord - secondPoint.yCoord) * (secondPoint.xCoord - firstPoint.xCoord);
+
+            if (leftEquationSide === rightEquationSide) {
+                arePointsInLine = true;
+            }
+
+            return arePointsInLine;
+        }
+
+        // Collect the values from all input elements and return it as array of floats
+        function readInputCoordinates() {
+            var coordinates = [],
+                currentNumber = 0,
+                i = 0,
+                l = 0;
+
+            inputElements = document.getElementsByTagName('input');
+
+            for (i = 0, l = inputElements.length; i < l; i++) {
+                currentNumber = inputElements[i].value;
+                currentNumber = parseFloat(currentNumber);
+
+                coordinates[i] = currentNumber;
+            }
+
+            return coordinates;
+        }
+    </script>
+</body>
+
+</html>

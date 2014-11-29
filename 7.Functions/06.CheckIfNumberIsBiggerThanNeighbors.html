@@ -1,0 +1,87 @@
+﻿<!--
+    06.Write a function that checks if the element at given position in given array of integers
+       is bigger than its two neighbors (when such exist).
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Is number bigger than its two neighbors</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        input {
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <label for="numberSequence">Enter a number sequence separated with ", ": </label>
+    <input type="text" id="numberSequence" />
+    <br />
+    <label for="number">Enter a number to check: </label>
+    <input type="text" id="number" />
+    <br />
+    <button onclick="checkIsNumberBiggerThanNeighbors()">Check number</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function checkIsNumberBiggerThanNeighbors() {
+            var numbersSequence = jsConsole.read('#numberSequence'),
+                numberToCheck = jsConsole.readInteger('#number'),
+                separator = ', ',
+                numberToCheckIndex = 0,
+                isNumberBigger = false;
+
+            // Input number sequence is needed to be parse to a numbers, so the comparison is correct
+            numbersSequence = numbersSequence.split(separator);
+            numbersSequence = parseStringToArrayOfInteger(numbersSequence);
+
+            numberToCheckIndex = numbersSequence.indexOf(numberToCheck);
+
+            if (numberToCheckIndex === -1) {
+                jsConsole.writeLine(numberToCheck + ' is not found!');
+            }
+            else if (numberToCheckIndex === 0 || numberToCheckIndex === numbersSequence.length - 1) {
+                jsConsole.writeLine(numberToCheck + " has only one neighbor!");
+            } else {
+                // Number neighbors are checked, only if it is not at the start or the end of the array
+                isNumberBigger = compareNeighborNumbers(numbersSequence, numberToCheck, numberToCheckIndex);
+
+                if (isNumberBigger) {
+                    jsConsole.writeLine(numberToCheck + " is bigger than it's neighbors!");
+                }
+                else {
+                    jsConsole.writeLine(numberToCheck + " is Not bigger than it's neighbors!");
+                }
+            }
+        }
+
+        // Check if number is bigger than it's two neighbors
+        function compareNeighborNumbers(array, number, numberIndex) {
+            var isNumberBigger = false;
+
+            if (numberIndex > 0 && numberIndex < array.length - 1) {
+                if (array[numberIndex - 1] < number && array[numberIndex + 1] < number) {
+                    isNumberBigger = true;
+                }
+            }
+
+            return isNumberBigger;
+        }
+
+        function parseStringToArrayOfInteger(numbersSequence) {
+            var numbersArray = [],
+                i = 0,
+                l = 0;
+
+            for (i = 0, l = numbersSequence.length; i < l; i++) {
+                numbersArray[i] = parseInt(numbersSequence[i]);
+            }
+
+            return numbersArray;
+        }
+    </script>
+</body>
+
+</html>

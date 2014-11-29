@@ -1,0 +1,63 @@
+﻿<!--
+    03.Write a function that finds all the occurrences of word in a text
+       The search can be case sensitive or case insensitive
+       Use function overloading
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reverse the digits of given decimal number</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        textarea {
+            width: 400px;
+            height: 60px;
+        }
+    </style>
+</head>
+<body>
+    <label for="number">Enter a text to search in: </label>
+    <textarea id="text"></textarea>
+    <br />
+    <label for="number">Enter a word to search for: </label>
+    <input type="text" id="word" />
+    <br />
+    <button onclick="printInputWordOccurrences()">Check appearance count</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function printInputWordOccurrences() {
+            var textToCheck = jsConsole.read('#text'),
+                wordToSearch = jsConsole.read('#word'),
+                wordOccurrencesCount = 0;
+
+            // Here we do not explicitly set "isCaseSensitive" to true and the program is case insensitive
+            wordOccurrencesCount = findAllWordOccurrencesCount(textToCheck, wordToSearch);
+
+            jsConsole.writeLine(wordOccurrencesCount);
+        }
+
+        function findAllWordOccurrencesCount(text, word, isCaseSensitive) {
+            var wordToSearch = word,
+                wordOccurrencesCount = 0,
+                arraySplittedByWordToSearch;
+
+            // This is the "overloading" part. If it is not explicitly "isCaseSensitive" set to true, the program Is case insensitive
+            if (isCaseSensitive === true) {
+                // The regex symbol "\\b" means that we want separate word, not part of other word!
+                wordToSearch = new RegExp("\\b" + word + "\\b");
+            }
+            else {
+                // "i" at the end means case insensitive
+                wordToSearch = new RegExp("\\b" + word + "\\b", "i");
+            }
+
+            arraySplittedByWordToSearch = text.split(wordToSearch);
+
+            return wordOccurrencesCount = arraySplittedByWordToSearch.length - 1;
+        }
+    </script>
+</body>
+</html>

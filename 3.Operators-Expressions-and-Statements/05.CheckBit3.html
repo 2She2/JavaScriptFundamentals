@@ -1,0 +1,30 @@
+<!--
+    05.Write a boolean expression for finding if the bit 3 (counting from 0) of a given integer is 1 or 0.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Check bit 3</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <label for="number">Enter integer number: </label>
+    <input type="text" id="number" />
+    <br />
+    <button id="checkNumber" onclick="checkBit3()">Check number</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function checkBit3() {
+            var inputNumber = jsConsole.readInteger("#number");
+
+            // Remove the first 3 bits(bit 3 is actualy the 4th bit) with bitwise operator ">>" and check the last bit with "&"
+            var bit3Value = (inputNumber >> 3) & 1;
+
+            jsConsole.writeLine("In number " + inputNumber + " Bit 3 is: " + bit3Value);
+        }
+    </script>
+</body>
+</html>

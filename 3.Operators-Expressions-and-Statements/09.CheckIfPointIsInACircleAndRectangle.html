@@ -1,0 +1,56 @@
+<!--
+    09.Write an expression that checks for given point (x, y) if it is within the circle K( (1,1), 3)
+    and out of the rectangle R(top=1, left=-1, width=6, height=2).
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Check if point is in a circle</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <label for="width">Enter X coord: </label>
+    <input type="text" id="width" />
+    <br />
+    <label for="height">Enter Y coord: </label>
+    <input type="text" id="height" />
+    <br />
+    <button id="calcArea" onclick="checkCoord()">Check point</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function checkCoord() {
+            var circleRadius = 3;
+
+            // Get coords X and Y from input fields
+            var pointX = jsConsole.readFloat("#width");
+            var pointY = jsConsole.readFloat("#height");
+
+            var circleX = 1;
+            var circleY = 1;
+
+            // The equation is (pointX - circleX)^2 + (pointY - circleY)^2 < radius^2, this do not include the border!
+            // Check the point distance
+            var pointDistance = ((pointX - circleX) * (pointX - circleX)) + ((pointY - circleY) * (pointY - circleY));
+            var circleRadiusSqr = circleRadius * circleRadius;
+
+            // Check if the point is in the circle
+            var isPointInCircle = pointDistance < circleRadiusSqr;
+
+            //Check if point is within the rectangle.
+            //If one of the coordinates is bigger(or lower) than the corresponding rectangle's coordinate, this point is out of the rectangle.
+            var isPointInRectangle = true;
+
+            if (pointX < -1 || pointY < -1 || pointX > 5 || pointY > 1) {
+                isPointInRectangle = false;
+            }
+
+            jsConsole.writeLine("Is point in circle -> " + isPointInCircle);
+            jsConsole.writeLine("Is point in rectangle -> " + isPointInRectangle);
+            jsConsole.writeLine("======================================")
+        }
+    </script>
+</body>
+</html>

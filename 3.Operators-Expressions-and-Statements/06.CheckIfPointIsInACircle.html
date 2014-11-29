@@ -1,0 +1,40 @@
+<!--
+    06.Write an expression that checks if given print (x,  y) is within a circle K(O, 5).
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Check if point is in a circle</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <label for="width">Enter X coord: </label>
+    <input type="text" id="width" />
+    <br />
+    <label for="height">Enter Y coord: </label>
+    <input type="text" id="height" />
+    <br />
+    <button id="calcArea" onclick="checkCoord()">Check point</button>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        // This function is called, when the button is clicked
+        function checkCoord() {
+            var circleRadius = 5;
+
+            // Get coords X and Y from input fields
+            var xCoord = jsConsole.readFloat("#width");
+            var yCoord = jsConsole.readFloat("#height");
+
+            // The equation is x*x + y*y < radius*radius, this do not include the border!
+            // Check the point distance
+            var pointDistance = xCoord * xCoord + yCoord * yCoord;
+            var circleRadiusSqr = circleRadius * circleRadius;
+
+            // Check if the point is within the circle
+            jsConsole.writeLine("Is point in circle -> " + (pointDistance < circleRadiusSqr));
+        }
+    </script>
+</body>
+</html>
